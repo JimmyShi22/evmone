@@ -312,9 +312,9 @@ const instruction* op_sha3(const instruction* instr, execution_state& state) noe
         return state.exit(EVMC_OUT_OF_GAS);
 
     auto data = s != 0 ? &state.memory[i] : nullptr;
-    if (state.host.get_host_context()->sm3_hash_fn)
+    if (state.host.get_host_context()->hash_fn)
     {
-        size = intx::be::load<uint256>(state.host.get_host_context()->sm3_hash_fn(data, s));
+        size = intx::be::load<uint256>(state.host.get_host_context()->hash_fn(data, s));
     }
     else
     {
