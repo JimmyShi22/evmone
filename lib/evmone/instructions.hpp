@@ -262,7 +262,14 @@ inline evmc_status_code keccak256(ExecutionState& state) noexcept
         return EVMC_OUT_OF_GAS;
 
     auto data = s != 0 ? &state.memory[i] : nullptr;
-    size = intx::be::load<uint256>(ethash::keccak256(data, s));
+    if (state.host.get_host_context()->hash_fn)
+    {
+        size = intx::be::load<uint256>(state.host.get_host_context()->hash_fn(data, s));
+    }
+    else
+    {
+        size = intx::be::load<uint256>(ethash::keccak256(data, s));
+    }
     return EVMC_SUCCESS;
 }
 

@@ -24,3 +24,7 @@ hunter_config(
     SHA1 b8c2501b33c8649a2c9e2268d8f652284ac5a778
 )
 
+hunter_config(evmc VERSION v9.0.0-a1b548e8
+        URL https://github.com/FISCO-BCOS/evmc/archive/a1b548e811948f4de5eae26fe6a9bf00c74d964f.tar.gz
+        SHA1 7f912f85d22aba3ca2ff23e1eec591f58b898d8d
+)

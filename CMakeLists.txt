@@ -4,9 +4,9 @@
 
 cmake_minimum_required(VERSION 3.13)
 
-if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/evmc/.git)
-    message(FATAL_ERROR "Git submodules not initialized, execute:\n  git submodule update --init")
-endif()
+# if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/evmc/.git)
+#     message(FATAL_ERROR "Git submodules not initialized, execute:\n  git submodule update --init")
+# endif()
 
 option(BUILD_SHARED_LIBS "Build evmone as a shared library" ON)
 option(EVMONE_TESTING "Build tests and test tools" OFF)
@@ -26,6 +26,7 @@ include(Hunter/init)
 
 project(evmone LANGUAGES CXX C)
 set(PROJECT_VERSION 0.8.2)
+include(GNUInstallDirs)
 
 string(REGEX MATCH "([0-9]+)\\.([0-9]+)" _ ${PROJECT_VERSION})
 set(PROJECT_VERSION_MAJOR ${CMAKE_MATCH_1})
@@ -38,10 +39,12 @@ endif()
 
 hunter_add_package(ethash)
 find_package(ethash CONFIG REQUIRED)
+hunter_add_package(evmc)
+find_package(evmc CONFIG REQUIRED)
 
 option(EVMC_TOOLS "Build EVMC test tools" ${EVMONE_TESTING})
 option(EVMC_INSTALL "Install EVMC" OFF)
-add_subdirectory(evmc)
+# add_subdirectory(evmc)
 
 cable_configure_compiler(NO_STACK_PROTECTION)
 if(CABLE_COMPILER_GNULIKE)
@@ -72,7 +75,7 @@ set(CMAKE_C_VISIBILITY_PRESET hidden)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
-include(GNUInstallDirs)
+# include(GNUInstallDirs)
 
 if(EVMONE_FUZZING)
     if(NOT ${CMAKE_CXX_COMPILER_ID} MATCHES Clang OR ${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 8)
