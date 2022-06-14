@@ -71,11 +71,12 @@ elseif(MSVC)
     add_compile_options(/wd5030)  # Allow using unknown attributes.
 endif()
 
-set(CMAKE_CXX_FLAGS -fexceptions)
-set(CMAKE_C_FLAGS -fexceptions)
 set(CMAKE_C_VISIBILITY_PRESET hidden)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
+
+set(CMAKE_CXX_FLAGS -fexceptions ${CMAKE_CXX_FLAGS})
+set(CMAKE_C_FLAGS -fexceptions ${CMAKE_C_FLAGS})
 
 # include(GNUInstallDirs)
 
